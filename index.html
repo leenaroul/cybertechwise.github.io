@@ -252,7 +252,7 @@
             <ul class="nav-links">
                 <li><a href="siem.html">SIEM (KQL/SPL)</a></li>
                 <li><a href="edr.html">EDR (CQL)</a></li>
-                <li><a href="ports.html">Network Protocol (Ports)</a></li>
+                <li><a href="ports.html">Ports</a></li>
                 <li><a href="careers.html">Cyber Careers</a></li>
                 <li><a href="insights.html">Cyber Insights</a></li>
             </ul>
@@ -261,15 +261,17 @@
 
     <div class="hero">
         <h1>Lookup Search Engine</h1>
-        <p>Cybertechwise is a quick-learning platform for SIEM, EDR, hunting queries, and network protocols </p>
+        <p>Cybertechwise is a quick-learning platform for SIEM, EDR, hunting queries, and network protocols.</p>
         
         <form class="search-container" id="searchForm" onsubmit="handleSearch(event)">
-            <input type="text" id="searchInput" placeholder="Search by Event ID, KQL, SPL, CQL, port number." required>
+            <input type="text" id="searchInput" placeholder="Search by Event ID, KQL, SPL, CQL, port number, or EDR issue." required>
             <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
 
         <div class="quick-links">
             <a href="siem.html">SIEM Query Overview</a>
+            <span style="color:#203a40;">|</span>
+            <a href="edr.html">EDR & CrowdStrike Ops</a>
             <span style="color:#203a40;">|</span>
             <a href="ports.html">Port & Protocol Trends</a>
         </div>
@@ -293,19 +295,30 @@
             // Explicit lists for specific targets to prevent number conflicts
             const siemSpecificAlerts = ['50126', '4625', '4526'];
 
-            if (siemSpecificAlerts.some(alertId => query.includes(alertId)) || query.includes('kql') || query.includes('splunk') || query.includes('spl') || query.includes('siem')) {
-                window.location.href = `siem.html?search=${encodeURIComponent(query)}`;
-            } else if (query.includes('cql') || query.includes('crowdstrike') || query.includes('edr')) {
+            // 1. EDR & CrowdStrike matching parameters
+            if (query.includes('cql') || query.includes('crowdstrike') || query.includes('edr') || query.includes('sensor') || query.includes('token') || query.includes('policy')) {
                 window.location.href = `edr.html?search=${encodeURIComponent(query)}`;
-            } else if (query.includes('port') || !isNaN(query)) { 
+            } 
+            // 2. SIEM matching parameters
+            else if (siemSpecificAlerts.some(alertId => query.includes(alertId)) || query.includes('kql') || query.includes('splunk') || query.includes('spl') || query.includes('siem')) {
+                window.location.href = `siem.html?search=${encodeURIComponent(query)}`;
+            } 
+            // 3. Port routing
+            else if (query.includes('port') || !isNaN(query)) { 
                 window.location.href = `ports.html?search=${encodeURIComponent(query)}`;
-            } else if (query.includes('career') || query.includes('job')) {
+            } 
+            // 4. Careers routing
+            else if (query.includes('career') || query.includes('job')) {
                 window.location.href = `careers.html?search=${encodeURIComponent(query)}`;
-            } else if (query.includes('insight') || query.includes('blog') || query.includes('news')) {
+            } 
+            // 5. Insights routing
+            else if (query.includes('insight') || query.includes('blog') || query.includes('news')) {
                 window.location.href = `insights.html?search=${encodeURIComponent(query)}`;
-            } else {
-                alert("No specific route found. Redirecting to general SIEM directory...");
-                window.location.href = "siem.html";
+            } 
+            // Fallback default
+            else {
+                alert("No exact match found. Opening EDR & SIEM directories...");
+                window.location.href = "edr.html";
             }
         }
     </script>
