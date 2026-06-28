@@ -4,52 +4,223 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cybertechwise | SIEM Queries (KQL & SPL)</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #121212;
-            --accent-blue: #0076ce;
+            --bg-color: #0b1114; /* Deep Cyber Dark Slate */
+            --accent-teal: #00bfa5; /* Glowing Sea Green / Teal */
+            --accent-glow: rgba(0, 191, 165, 0.2);
             --text-color: #ffffff;
-            --text-muted: #aaaaaa;
-            --nav-bg: #1a1a1a;
-            --card-bg: #1e1e1e;
+            --text-muted: #8fa0a6; /* Muted teal-tinted gray */
+            --nav-bg: #10191d; /* Dark matrix navigation bar */
+            --card-bg: #122226; /* Deep matching input card fill */
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
-        
-        header { background-color: var(--nav-bg); border-bottom: 1px solid #2a2a2a; }
-        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
-        .logo { font-size: 22px; font-weight: 700; color: var(--text-color); text-decoration: none; }
-        .logo span { color: var(--accent-blue); }
-        .nav-links { display: flex; list-style: none; gap: 25px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; }
-        .nav-links a:hover { color: var(--text-color); }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
 
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; flex: 1; }
-        h1 { font-size: 32px; margin-bottom: 10px; font-weight: 600; }
-        p.subtitle { color: var(--text-muted); margin-bottom: 30px; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Cyber Style Sea Green Radial Glows */
+            background-image: radial-gradient(circle at 15% 20%, #0d2625 0%, transparent 55%), 
+                              radial-gradient(circle at 85% 70%, #061f1e 0%, transparent 55%);
+        }
 
-        .query-card { background: var(--card-bg); border: 1px solid #2a2a2a; border-radius: 6px; padding: 20px; margin-bottom: 20px; }
-        .query-card h3 { color: var(--accent-blue); margin-bottom: 10px; font-size: 20px; }
-        .query-card p { color: #e0e0e0; font-size: 14px; margin-bottom: 12px; }
-        pre { background: #000; padding: 15px; border-radius: 4px; overflow-x: auto; color: #50b948; font-family: monospace; margin: 10px 0; font-size: 14px; border: 1px solid #222; }
+        /* --- Header & Navigation --- */
+        header {
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid #172a2f;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-        footer { background-color: var(--nav-bg); border-top: 1px solid #2a2a2a; padding: 20px; text-align: center; margin-top: auto; }
-        .footer-links { display: flex; justify-content: center; gap: 20px; list-style: none; margin-bottom: 10px; }
-        .footer-links a { color: var(--text-muted); font-size: 13px; text-decoration: none; }
-        footer p { font-size: 12px; color: #555; }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px var(--accent-teal)); /* Gives your logo a cyber glow */
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-color);
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-teal);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-teal);
+        }
+
+        /* --- Content Layout --- */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* --- Query Cards --- */
+        .query-card {
+            background: var(--card-bg);
+            border: 1px solid #1f3d45;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .query-card:hover {
+            border: 1px solid var(--accent-teal);
+            box-shadow: 0 4px 25px rgba(0, 191, 165, 0.15);
+        }
+
+        .query-card h3 {
+            color: var(--accent-teal);
+            margin-bottom: 10px;
+            font-size: 20px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .query-card p {
+            color: #e0e0e0;
+            font-size: 14px;
+            margin-bottom: 12px;
+            font-weight: 300;
+        }
+
+        pre {
+            background: #05090b;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            color: #00ebd2; /* High-contrast bright terminal sea-green */
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            font-size: 14px;
+            border: 1px solid #172a2f;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--nav-bg);
+            border-top: 1px solid #172a2f;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-teal);
+        }
+
+        footer p {
+            font-size: 12px;
+            color: #3b5258;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">Cybertech<span>wise</span></a>
+            <a href="index.html" class="logo-container">
+                <img src="logo.png" alt="Icon" class="logo-img" onerror="this.style.display='none'">
+                <div class="logo">CyberTech<span>Wise</span></div>
+            </a>
             <ul class="nav-links">
-                <li><a href="siem.html" style="color: white; font-weight: 600;">SIEM (KQL/SPL)</a></li>
+                <li><a href="siem.html" style="color: white; font-weight: 600; border-bottom: 2px solid var(--accent-teal); padding-bottom: 3px;">SIEM (KQL/SPL)</a></li>
                 <li><a href="edr.html">EDR (CQL)</a></li>
                 <li><a href="ports.html">Ports</a></li>
                 <li><a href="careers.html">Cyber Careers</a></li>
@@ -78,9 +249,9 @@
 | stats count by user, src_ip
 | where count > 10</pre>
         </div>
+    </div> 
 
-
-        </div> <footer>
+    <footer>
         <ul class="footer-links">
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact Us</a></li>
