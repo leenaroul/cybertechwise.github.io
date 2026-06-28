@@ -220,11 +220,11 @@
 
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">Cyber<span>techwise</span></a>
+            <a href="index.html" class="logo">Cyber<span>TechWise</span></a>
             <ul class="nav-links">
-                <li><a href="siem.html">SIEM (KQL/SPL)</a></li>
+                <li><a href="siem.html">SIEM</a></li>
                 <li><a href="edr.html">EDR Logs</a></li>
-                <li><a href="ports.html">Network Ports & Devices</a></li>
+                <li><a href="ports.html">Networking</a></li>
                 <li><a href="careers.html">Cyber Careers</a></li>
                 <li><a href="insights.html">Cyber Insights</a></li>
             </ul>
@@ -236,7 +236,7 @@
         <p>Search for Windows Event IDs, KQL, Splunk, EDR parameters, or Firewalls/Ports info below.</p>
         
         <div class="search-container">
-            <input type="text" id="homeSearch" class="search-input" placeholder="e.g., 4624, edr, firewall, kql, powershell..." onkeypress="handleKeyPress(event)">
+            <input type="text" id="homeSearch" class="search-input" placeholder="e.g., 4624, EDR, OSI layer, kql, CQL..." onkeypress="handleKeyPress(event)">
             <button class="search-btn" onclick="executeSearch()">Search</button>
         </div>
         <div id="errorMsg" class="error-message">Keyword or Event ID not found. Try searching 'SIEM', 'EDR', or 'Ports'.</div>
@@ -251,11 +251,11 @@
             </a>
             <a href="edr.html" class="category-card">
                 <h3>EDR Telemetry & Logs</h3>
-                <p>Endpoint tracking parameters including AmCache, ShimCache, Prefetch, process executions, and registry tracking anomalies.</p>
+                <p>Endpoint tracking parameters including procesrollup, process executions, and Crowdstrike EDR solution and custom CQL strings .</p>
             </a>
             <a href="ports.html" class="category-card">
-                <h3>Network Devices & Ports</h3>
-                <p>Firewall egress logs, core router NetFlow, IDS/IPS alerts, Web proxies, and critical network interface configurations.</p>
+                <h3>Networking </h3>
+                <p>Ports & OSI Model, IDS/IPS alerts, Web proxies, and critical network interface configurations.</p>
             </a>
         </div>
     </div>
@@ -296,7 +296,7 @@
         // Specific words related to Network Devices
         const networkKeywords = [
             'network', 'ports', 'firewall', 'router', 'switch', 'load balancer', 'netflow', 
-            'ids', 'ips', 'proxy', 'gateway', 'nac', 'vpn', 'mail appliance'
+            'ids', 'ips', 'proxy', 'gateway', 'nac', 'vpn', 'mail appliance', 'osi layer' ,'layer1','layer2','layer3','layer4','layer5','layer6','layer7'
         ];
 
         function handleKeyPress(event) {
