@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybertechwise | SIEM Queries (KQL & SPL)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #121212;
+            --accent-blue: #0076ce;
+            --text-color: #ffffff;
+            --text-muted: #aaaaaa;
+            --nav-bg: #1a1a1a;
+            --card-bg: #1e1e1e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        header { background-color: var(--nav-bg); border-bottom: 1px solid #2a2a2a; }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
+        .logo { font-size: 22px; font-weight: 700; color: var(--text-color); text-decoration: none; }
+        .logo span { color: var(--accent-blue); }
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; }
+        .nav-links a:hover { color: var(--text-color); }
+
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; flex: 1; }
+        h1 { font-size: 32px; margin-bottom: 10px; font-weight: 600; }
+        p.subtitle { color: var(--text-muted); margin-bottom: 30px; }
+
+        .query-card { background: var(--card-bg); border: 1px solid #2a2a2a; border-radius: 6px; padding: 20px; margin-bottom: 20px; }
+        .query-card h3 { color: var(--accent-blue); margin-bottom: 10px; font-size: 20px; }
+        .query-card p { color: #e0e0e0; font-size: 14px; margin-bottom: 12px; }
+        pre { background: #000; padding: 15px; border-radius: 4px; overflow-x: auto; color: #50b948; font-family: monospace; margin: 10px 0; font-size: 14px; border: 1px solid #222; }
+
+        footer { background-color: var(--nav-bg); border-top: 1px solid #2a2a2a; padding: 20px; text-align: center; margin-top: auto; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; list-style: none; margin-bottom: 10px; }
+        .footer-links a { color: var(--text-muted); font-size: 13px; text-decoration: none; }
+        footer p { font-size: 12px; color: #555; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Cybertech<span>wise</span></a>
+            <ul class="nav-links">
+                <li><a href="siem.html" style="color: white; font-weight: 600;">SIEM (KQL/SPL)</a></li>
+                <li><a href="edr.html">EDR (CQL)</a></li>
+                <li><a href="ports.html">Ports</a></li>
+                <li><a href="careers.html">Cyber Careers</a></li>
+                <li><a href="insights.html">Cyber Insights</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>SIEM Query Repository</h1>
+        <p class="subtitle">Quick reference for Microsoft Sentinel (KQL) and Splunk (SPL) detection rules.</p>
+
+        <div class="query-card">
+            <h3>Failed Sign-ins via KQL</h3>
+            <p>Tracks multiple failed authentication events across your environments.</p>
+            <pre>SigninLogs
+| where ResultType == "50126"
+| summarize Count=count() by UserPrincipalName, IPAddress
+| where Count > 5</pre>
+        </div>
+
+        <div class="query-card">
+            <h3>Brute Force Detection via Splunk (SPL) - Event ID 4625</h3>
+            <p>Monitors Windows Security Event ID 4625 for potential target attacks.</p>
+            <pre>index=security sourcetype="WinEventLog:Security" EventCode=4625
+| stats count by user, src_ip
+| where count > 10</pre>
+        </div>
+
+
+        </div> <footer>
+        <ul class="footer-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="terms.html">Terms & Conditions</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+        <p>&copy; 2026 Cybertechwise. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
