@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybertechwise | EDR Queries & Troubleshooting (CQL)</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b1114; /* Deep Cyber Dark Slate */
+            --accent-teal: #00bfa5; /* Glowing Sea Green / Teal */
+            --accent-glow: rgba(0, 191, 165, 0.2);
+            --text-color: #ffffff;
+            --text-muted: #8fa0a6; /* Muted teal-tinted gray */
+            --nav-bg: #10191d; /* Dark matrix navigation bar */
+            --card-bg: #122226; /* Deep matching input card fill */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Cyber Style Sea Green Radial Glows */
+            background-image: radial-gradient(circle at 15% 20%, #0d2625 0%, transparent 55%), 
+                              radial-gradient(circle at 85% 70%, #061f1e 0%, transparent 55%);
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid #172a2f;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px var(--accent-teal)); /* Gives logo a cyber glow */
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-color);
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-teal);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-teal);
+        }
+
+        /* --- Content Layout --- */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        h2.section-title {
+            font-size: 22px;
+            color: #ffffff;
+            margin: 35px 0 15px 0;
+            border-left: 4px solid var(--accent-teal);
+            padding-left: 10px;
+        }
+
+        /* --- Query & Resolution Cards --- */
+        .query-card {
+            background: var(--card-bg);
+            border: 1px solid #1f3d45;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .query-card:hover {
+            border: 1px solid var(--accent-teal);
+            box-shadow: 0 4px 25px rgba(0, 191, 165, 0.15);
+        }
+
+        .query-card h3 {
+            color: var(--accent-teal);
+            margin-bottom: 10px;
+            font-size: 20px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .query-card p {
+            color: #e0e0e0;
+            font-size: 14px;
+            margin-bottom: 12px;
+            font-weight: 300;
+        }
+
+        .steps-list {
+            margin: 10px 0 10px 20px;
+            color: #d1dfe2;
+            font-size: 14px;
+        }
+
+        .steps-list li {
+            margin-bottom: 6px;
+        }
+
+        pre {
+            background: #05090b;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            color: #00ebd2; /* High contrast cyber green font */
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            font-size: 14px;
+            border: 1px solid #172a2f;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--nav-bg);
+            border-top: 1px solid #172a2f;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-teal);
+        }
+
+        footer p {
+            font-size: 12px;
+            color: #3b5258;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-container">
+                <img src="logo.png" alt="Icon" class="logo-img" onerror="this.style.display='none'">
+                <div class="logo">CyberTech<span>Wise</span></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="siem.html">SIEM (KQL/SPL)</a></li>
+                <li><a href="edr.html" style="color: white; font-weight: 600; border-bottom: 2px solid var(--accent-teal); padding-bottom: 3px;">EDR (CQL)</a></li>
+                <li><a href="ports.html">Ports</a></li>
+                <li><a href="careers.html">Cyber Careers</a></li>
+                <li><a href="insights.html">Cyber Insights</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>EDR Repository & Operations</h1>
+        <p class="subtitle">Quick reference guide for CrowdStrike LogScale (CQL) hunting queries and troubleshooting EDR client runtime exceptions.</p>
+
+        <h2 class="section-title">CrowdStrike Falcon (CQL) Hunting Queries</h2>
+
+        <div class="query-card">
+            <h3>Process Execution Analysis</h3>
+            <p>Hunts for system command line arguments running out of unusual directories like temp or public spaces.</p>
+            <pre>#event_simpleName=ProcessRollup2
+| regex("FilePath", g="\\(temp|Users\\Public)\\")
+| table([Timestamp, ComputerName, UserName, ImageFileName, CommandLine])</pre>
+        </div>
+
+        <div class="query-card">
+            <h3>Network Connection Breakdown</h3>
+            <p>Identifies outgoing connection handshakes originating from native binary command lines (e.g., PowerShell, cmd.exe).</p>
+            <pre>#event_simpleName=NetworkConnectIP4
+| ImageFileName=/\\(powershell|cmd|wscript)\.exe$/
+| stats(count=count(), dcount(RemoteIP) as DistinctIPs) by=[ComputerName, ImageFileName]</pre>
+        </div>
+
+        <h2 class="section-title">EDR Operations & Troubleshooting Procedures</h2>
+
+        <div class="query-card">
+            <h3>Issue: Sensor Deployment Token Verification Failure</h3>
+            <p>Occurs during silent command-line rollouts if the dynamic cloud installation token expires or contains configuration string flaws.</p>
+            <p><strong>Resolution Runbook:</strong></p>
+            <ul class="steps-list">
+                <li>Navigate to the Falcon Platform console -> Host setup and management -> Sensor Downloads.</li>
+                <li>Verify if your current CID token has expired or requires a target group allocation tag.</li>
+                <li>When executing via Command Prompt (Admin), ensure the string quotes wrapper is pristine:</li>
+            </ul>
+            <pre>WindowsSensor.exe /install /quiet CID=YOUR_VALID_CID_HERE_WITH_NO_SPACES</pre>
+        </div>
+
+        <div class="query-card">
+            <h3>Issue: Dynamic Sensor Policy De-synchronization</h3>
+            <p>The host endpoints remain listed inside the dashboard container but show stale prevention posture settings or fail to pull structural logic upgrades.</p>
+            <p><strong>Resolution Runbook:</strong></p>
+            <ul class="steps-list">
+                <li>Verify connectivity to the cloud backend control plane using outbound network debugging assets.</li>
+                <li>Force a real-time parameters refresh directly from an administrative endpoint console window:</li>
+            </ul>
+            <pre># For Linux environments to cycle policy daemon channels
+sudo /opt/CrowdStrike/falconctl -v --refresh-policy</pre>
+        </div>
+
+        <div class="query-card">
+            <h3>Issue: Emergency Sensor Mechanical Uninstallation</h3>
+            <p>When the local asset platform registry or execution drivers break down, standard application software removals will prompt for a Maintenance Token.</p>
+            <p><strong>Resolution Runbook:</strong></p>
+            <ul class="steps-list">
+                <li>Locate the target machine metadata on the cloud engine panel and find its localized <strong>Maintenance Token</strong> string sequence.</li>
+                <li>Open an elevated administrative terminal instance and execute the manual override extraction payload:</li>
+            </ul>
+            <pre>CSUninstall.exe /quiet MaintenanceToken=YOUR_EXTRACTED_MAINTENANCE_TOKEN</pre>
+        </div>
+    </div>
+
+    <footer>
+        <ul class="footer-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="terms.html">Terms & Conditions</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+        <p>&copy; 2026 Cybertechwise. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
