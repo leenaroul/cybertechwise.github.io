@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ports & OSI Model - CyberTechWise</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* --- Cyber Sea Green Theme Variables --- */
+        :root {
+            --bg-gradient: radial-gradient(circle at 50% 10%, #0a1f1c 0%, #050c0a 70%);
+            --bg-color: #050c0a;
+            --nav-bg: rgba(8, 20, 17, 0.85);
+            --card-bg: #0b1915;
+            --accent-teal: #00bfa5;
+            --accent-glow: rgba(0, 191, 165, 0.2);
+            --text-color: #ffffff;
+            --text-muted: #7fa69f;
+            --border-color: #14352f;
+            --terminal-bg: #030706;
+            --port-tag: #00e5ff;
+        }
+
+        /* --- Global Resets --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            background-image: var(--bg-gradient);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-color);
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-teal);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s, text-shadow 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-color);
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        h1 span {
+            color: var(--accent-teal);
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        /* --- OSI Layer Card Framework --- */
+        .layer-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .layer-card:hover {
+            border-color: var(--accent-teal);
+            box-shadow: 0 4px 25px rgba(0, 191, 165, 0.15);
+        }
+
+        .layer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .layer-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .layer-badge {
+            background: rgba(0, 191, 165, 0.1);
+            color: var(--accent-teal);
+            border: 1px solid var(--accent-teal);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .layer-mechanism {
+            color: var(--text-muted);
+            font-size: 14.5px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* --- Data Lists & Terminals --- */
+        .protocol-section-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-teal);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .protocol-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .protocol-item {
+            background: var(--terminal-bg);
+            border-left: 3px solid var(--accent-teal);
+            padding: 12px 15px;
+            border-radius: 0 6px 6px 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .protocol-name {
+            font-family: 'Fira Code', monospace;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .port-number {
+            font-family: 'Fira Code', monospace;
+            color: var(--port-tag);
+            font-weight: 600;
+            background: rgba(0, 229, 255, 0.1);
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-left: 4px;
+        }
+
+        .protocol-desc {
+            color: var(--text-muted);
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* --- Footer Styles --- */
+        footer {
+            background-color: var(--nav-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 25px 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-color);
+        }
+
+        footer p {
+            font-size: 12px;
+            color: #4e6e68;
+        }
+
+        /* --- Responsive View --- */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-area">
+                <img src="logo.png" alt="🔒" class="logo-icon" onerror="this.style.display='none'">
+                <div class="logo">CyberTech<span>Wise</span></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="siem.html">SIEM (KQL/SPL)</a></li>
+                <li><a href="edr.html">EDR (CQL)</a></li>
+                <li><a href="ports.html" class="active">Ports & OSI</a></li>
+                <li><a href="careers.html">Cyber Careers</a></li>
+                <li><a href="insights.html">Cyber Insights</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Network <span>Ports & OSI Model</span> Reference</h1>
+        <p class="subtitle">Quick-reference learning guide mapping the standard OSI structural layers with core operational network ports.</p>
+
+        <div class="layer-card">
+            <div class="layer-header">
+                <div class="layer-title">Layer 7: Application Layer</div>
+                <span class="layer-badge">Top Layer</span>
+            </div>
+            <div class="layer-mechanism">
+                <strong>How it works:</strong> This is the layer closest to the user. It provides network services directly to your software applications (like web browsers or email clients) so you can interact with the network.
+            </div>
+            <div class="protocol-section-title">Protocols & Port Numbers</div>
+            <div class="protocol-list">
+                <div class="protocol-item">
+                    <span class="protocol-name">HTTP</span> (<span class="port-number">Port 80</span>)
+                    <span class="protocol-desc">Used for loading standard web pages.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">HTTPS</span> (<span class="port-number">Port 443</span>)
+                    <span class="protocol-desc">Secured, encrypted version of HTTP using certificates.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">DNS</span> (<span class="port-number">Port 53</span>)
+                    <span class="protocol-desc">Translates human-readable names (like yahoo.com) into IP addresses.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">FTP</span> (<span class="port-number">Ports 20, 21</span>)
+                    <span class="protocol-desc">Used for bi-directional file transfers between a client and server.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">TFTP</span> (<span class="port-number">Port 69</span>)
+                    <span class="protocol-desc">Trivial FTP. Faster, connectionless, unauthenticated, uni-directional file transfer.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">SMTP</span> (<span class="port-number">Port 25</span>)
+                    <span class="protocol-desc">Used for sending emails from server to server.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">POP3</span> (<span class="port-number">Port 110</span>)
+                    <span class="protocol-desc">Used for receiving emails; downloads them locally.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">IMAP4</span> (<span class="port-number">Port 143</span>)
+                    <span class="protocol-desc">Used for receiving emails; lets you view and manage them directly on the server.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">Telnet</span> (<span class="port-number">Port 23</span>)
+                    <span class="protocol-desc">Basic text-based, unencrypted remote terminal access.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">SSH</span> (<span class="port-number">Port 22</span>)
+                    <span class="protocol-desc">Secure, encrypted remote login and file execution.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">SNMP</span> (<span class="port-number">Ports 161, 162</span>)
+                    <span class="protocol-desc">Used by network managers to monitor device health using "agents" and a MIB database.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">SMB</span> (<span class="port-number">Port 445</span>)
+                    <span class="protocol-desc">Microsoft Windows protocol for transparent file and printer sharing.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">LDAP</span> (<span class="port-number">Port 389</span>)
+                    <span class="protocol-desc">Used to query and modify hierarchical directory services (like phonebooks/user data).</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">LPD/LPR</span> (<span class="port-number">Port 515</span>)
+                    <span class="protocol-desc">Network printing systems used primarily for Unix/Linux environments.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">NTP</span> (<span class="port-number">Port 123</span>)
+                    <span class="protocol-desc">Synchronizes the clock/time across network devices.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">SCP</span> (<span class="port-number">Port 22</span>)
+                    <span class="protocol-desc">Securely copies files between hosts using an underlying SSH connection.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header">
+                <div class="layer-title">Layer 6: Presentation Layer</div>
+                <span class="layer-badge">Data Translation</span>
+            </div>
+            <div class="layer-mechanism">
+                <strong>How it works:</strong> Acts as the translator. It takes data from Layer 7 and formats, compresses, or encrypts it so it can be universally understood across different systems.
+            </div>
+            <div class="protocol-section-title">Protocols & Functions</div>
+            <div class="protocol-list">
+                <div class="protocol-item">
+                    <span class="protocol-name">SSL / TLS</span>
+                    <span class="protocol-desc">Used in HTTPS encryption; lives here to ensure your data is unreadable to eavesdroppers.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header">
+                <div class="layer-title">Layer 5: Session Layer</div>
+                <span class="layer-badge">Communication Dialogs</span>
+            </div>
+            <div class="layer-mechanism">
+                <strong>How it works:</strong> It establishes, manages, maintains, and terminates communication "sessions" (dialogues) between two devices. It keeps your specific connection separate from others.
+            </div>
+            <div class="protocol-section-title">Protocols & Functions</div>
+            <div class="protocol-list">
+                <div class="protocol-item">
+                    <span class="protocol-name">NetBIOS / RPC</span>
+                    <span class="protocol-desc">This layer coordinates the authentication processes and reconnection management seen in these session-based protocols.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header">
+                <div class="layer-title">Layer 4: Transport Layer</div>
+                <span class="layer-badge">Segments</span>
+            </div>
+            <div class="layer-mechanism">
+                <strong>How it works:</strong> This layer takes data from the upper layers and breaks it into smaller pieces called Segments. It handles how data is delivered between end-to-end applications.
+            </div>
+            <div class="protocol-section-title">Protocols & Functions</div>
+            <div class="protocol-list">
+                <div class="protocol-item">
+                    <span class="protocol-name">TCP (Transmission Control Protocol)</span>
+                    <span class="protocol-desc">Connection-oriented. It opens a dedicated channel, guarantees data delivery, and verifies receipts. (Used by HTTP, HTTPS, FTP, SMTP).</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">UDP (User Datagram Protocol)</span>
+                    <span class="protocol-desc">Connectionless. It simply broadcasts data without waiting for verification or acknowledgments, making it much faster. (Used by TFTP, DNS, DHCP).</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header">
+                <div class="layer-title">Layer 3: Network Layer</div>
+                <span class="layer-badge">Packets</span>
+            </div>
+            <div class="layer-mechanism">
+                <strong>How it works:</strong> Responsible for routing data across different networks. It takes segments from Layer 4 and packages them into Packets, finding the best path from the source to the destination.
+            </div>
+            <div class="protocol-section-title">Protocols & Functions</div>
+            <div class="protocol-list">
+                <div class="protocol-item">
+                    <span class="protocol-name">IP (Internet Protocol)</span>
+                    <span class="protocol-desc">Assigns software addresses (IP Addresses) to devices. Includes IPv4 (32-bit) and IPv6 (128-bit).</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">NAT (Network Address Translation)</span>
+                    <span class="protocol-desc">Translates private internal IP addresses into public IP addresses (Static or Dynamic) to interact with the outside world.</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">ICMP</span>
+                    <span class="protocol-desc">Used for network diagnostics, error reporting, and router flow control (e.g., the <code>ping</code> command).</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">IGMP</span>
+                    <span class="protocol-desc">Used to manage and establish memberships in IP multicast groups (online video/gaming).</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header">
+                <div class="layer-title">Layer 2: Data Link Layer</div>
+                <span class="layer-badge">Frames</span>
+            </div>
+            <div class="layer-mechanism">
+                <strong>How it works:</strong> Handles physical communication within the same local network domain. It wraps network packets into Frames and ensures error-free physical delivery using physical hardware addresses (MAC Addresses).
+            </div>
+            <div class="protocol-section-title">Protocols & Functions</div>
+            <div class="protocol-list">
+                <div class="protocol-item">
+                    <span class="protocol-name">ARP (Address Resolution Protocol)</span>
+                    <span class="protocol-desc">Resolves a known IP address (Layer 3) to find a device's unknown physical MAC address (Layer 2).</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="protocol-name">RARP (Reverse ARP)</span>
+                    <span class="protocol-desc">Used by diskless devices to find their own IP address when they only know their physical MAC address (ancestor of DHCP).</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header">
+                <div class="layer-title">Layer 1: Physical Layer</div>
+                <span class="layer-badge">Bits</span>
+            </div>
+            <div class="layer-mechanism">
+                <strong>How it works:</strong> The actual hardware layer. It translates frames into raw electrical, optical, or radio signals (Bits of 1s and 0s) and physically transmits them over cables, fibers, or wireless frequencies.
+            </div>
+            <div class="protocol-section-title">Physical Components</div>
+            <div class="protocol-list">
+                <div class="protocol-item">
+                    <span class="protocol-name">Hardware Infrastructure</span>
+                    <span class="protocol-desc">Cables (Cat6, Fiber), Hubs, NICs (Network Interface Cards), and connectors.</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <ul class="footer-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="terms.html">Terms & Conditions</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+        <p>&copy; 2026 CyberTechWise. Built for Quick Cyber Learners.</p>
+    </footer>
+
+</body>
+</html>
