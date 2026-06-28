@@ -3,28 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberTechWise | Cyber Careers Roadmap</title>
+    <title>Cyber Careers - CyberTechWise</title>
     <link rel="icon" type="image/png" href="logo.png">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
+        /* --- Cyber Sea-Green / Terminal Theme Variables --- */
         :root {
-            --bg-color: #0b1114; /* Deep Cyber Dark Slate */
-            --accent-teal: #00bfa5; /* Glowing Sea Green / Teal */
-            --accent-glow: rgba(0, 191, 165, 0.2);
-            --text-color: #ffffff;
-            --text-muted: #8fa0a6; /* Muted teal-tinted gray */
-            --nav-bg: #10191d; /* Dark matrix navigation bar */
-            --card-bg: #122226; /* Deep matching input card fill */
+            --bg-color: #080f10;
+            --nav-bg: #0c181a;
+            --card-bg: #0d1e21;
+            --text-color: #e0f2f1;
+            --text-muted: #85a5a8;
+            --accent-teal: #00ffcc; /* Bright terminal sea-green */
+            --accent-glow: rgba(0, 255, 204, 0.08);
+            --border-color: #172a2f;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Courier New', monospace; /* Authentic terminal font */
         }
 
         body {
@@ -33,15 +31,11 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            /* Cyber Style Sea Green Radial Glows */
-            background-image: radial-gradient(circle at 15% 20%, #0d2625 0%, transparent 55%), 
-                              radial-gradient(circle at 85% 70%, #061f1e 0%, transparent 55%);
         }
 
-        /* --- Header & Navigation --- */
         header {
             background-color: var(--nav-bg);
-            border-bottom: 1px solid #172a2f;
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -63,18 +57,16 @@
             text-decoration: none;
         }
 
-        .logo-img {
-            width: 32px;
-            height: 32px;
+        .logo-icon {
+            width: 30px;
+            height: 30px;
             object-fit: contain;
-            filter: drop-shadow(0 0 8px var(--accent-teal));
         }
 
         .logo {
             font-size: 22px;
             font-weight: 700;
             color: var(--text-color);
-            letter-spacing: 0.5px;
         }
 
         .logo span {
@@ -92,14 +84,13 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: var(--accent-teal);
         }
 
-        /* --- Content Layout --- */
         .container {
             max-width: 1000px;
             margin: 40px auto;
@@ -110,108 +101,142 @@
         h1 {
             font-size: 32px;
             margin-bottom: 10px;
-            font-weight: 600;
-            text-shadow: 0 0 20px var(--accent-glow);
+            font-weight: 700;
+            color: var(--accent-teal);
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 10px;
         }
 
         p.subtitle {
             color: var(--text-muted);
             margin-bottom: 35px;
-            font-weight: 300;
+            font-size: 15px;
             line-height: 1.6;
         }
 
-        /* --- Career Matrix Cards --- */
-        .query-card {
-            background: var(--card-bg);
-            border: 1px solid #1f3d45;
-            border-radius: 6px;
-            padding: 24px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            transition: border 0.3s, box-shadow 0.3s;
-        }
-
-        .query-card:hover {
-            border: 1px solid var(--accent-teal);
-            box-shadow: 0 4px 25px rgba(0, 191, 165, 0.15);
-        }
-
-        .query-card h3 {
-            color: var(--accent-teal);
-            margin-bottom: 12px;
-            font-size: 20px;
-            text-shadow: 0 0 10px var(--accent-glow);
+        /* --- Custom Filters styling for terminal design --- */
+        .filter-section {
+            margin-bottom: 30px;
+            background: var(--nav-bg);
+            padding: 15px 20px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 14px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--accent-teal);
+            color: var(--bg-color);
+            background: var(--accent-teal);
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        .category-block {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 20px;
+            color: var(--accent-teal);
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-teal);
+            padding-left: 12px;
+            font-weight: 600;
+        }
+
+        .career-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .career-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+            border-color: var(--accent-teal);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
             gap: 10px;
         }
 
-        .query-card p {
-            color: #e0e0e0;
-            font-size: 14px;
-            margin-bottom: 15px;
-            font-weight: 300;
-            line-height: 1.5;
+        .card-header h3 {
+            font-size: 18px;
+            color: var(--text-color);
+            font-weight: 600;
         }
 
-        /* Code-block style info panel for paths & certs */
-        .info-panel {
-            background: #05090b;
-            padding: 18px;
+        .tag-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(0, 255, 204, 0.05);
+            color: var(--accent-teal);
+            font-size: 11px;
+            padding: 4px 10px;
             border-radius: 4px;
-            color: #d1e8e5;
+            font-weight: 600;
+            text-transform: uppercase;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+        }
+
+        .card-body {
             font-size: 14px;
-            border: 1px solid #172a2f;
+            color: var(--text-muted);
             line-height: 1.6;
         }
 
-        .info-panel ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .info-panel li {
-            margin-bottom: 12px;
-            position: relative;
+        .cert-list {
+            margin-top: 15px;
             padding-left: 20px;
         }
 
-        .info-panel li::before {
-            content: "▹";
-            position: absolute;
-            left: 0;
+        .cert-list li {
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .cert-list strong {
             color: var(--accent-teal);
-            font-weight: bold;
         }
 
-        .info-panel strong {
-            color: #00ebd2; /* High-contrast terminal color */
-            font-family: 'Courier New', monospace;
-            font-size: 15px;
-        }
-
-        .sub-list {
-            padding-left: 15px;
-            margin-top: 6px;
-        }
-
-        .sub-list li {
-            margin-bottom: 6px;
-            font-size: 13px;
-            color: #a4b6b9;
-        }
-
-        .sub-list li::before {
-            content: "•";
-            color: #3b5258;
-        }
-
-        /* --- Footer --- */
         footer {
             background-color: var(--nav-bg);
-            border-top: 1px solid #172a2f;
-            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            padding: 25px 20px;
             text-align: center;
             margin-top: auto;
         }
@@ -219,15 +244,17 @@
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             list-style: none;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
         }
 
         .footer-links a {
             color: var(--text-muted);
             font-size: 13px;
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
@@ -236,7 +263,7 @@
 
         footer p {
             font-size: 12px;
-            color: #3b5258;
+            color: #3b5759;
         }
 
         @media (max-width: 768px) {
@@ -249,8 +276,9 @@
                 justify-content: center;
                 gap: 15px;
             }
-            h1 {
-                font-size: 26px;
+            .filter-section {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -260,14 +288,14 @@
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo-container">
-                <img src="logo.png" alt="Icon" class="logo-img" onerror="this.style.display='none'">
-                <div class="logo">CyberTech<span>Wise</span></div>
+                <img src="logo.png" alt="Logo" class="logo-icon" onerror="this.style.display='none'">
+                <div class="logo">Cyber<span>TechWise</span></div>
             </a>
             <ul class="nav-links">
-                <li><a href="siem.html">SIEM (KQL/SPL)</a></li>
-                <li><a href="edr.html">EDR (CQL)</a></li>
+                <li><a href="siem.html">SIEM(KQL/SPL)</a></li>
+                <li><a href="edr.html">EDR(CQL)</a></li>
                 <li><a href="ports.html">Ports(OSI Model)</a></li>
-                <li><a href="careers.html" style="color: white; font-weight: 600; border-bottom: 2px solid var(--accent-teal); padding-bottom: 3px;">Cyber Careers</a></li>
+                <li><a href="careers.html" class="active">Cyber Careers</a></li>
                 <li><a href="insights.html">Cyber Insights</a></li>
             </ul>
         </div>
@@ -275,138 +303,241 @@
 
     <div class="container">
         <h1>Cybersecurity Career Paths</h1>
-        <p class="subtitle">Building a career in cybersecurity can feel overwhelming with so many different vendors and training providers out there. To make this easy to navigate, here is a descriptive guide broken down by key organizations, explaining exactly what they offer and which career paths they serve.</p>
+        <p class="subtitle">Building a career in cybersecurity can feel overwhelming with so many different vendors and training providers out there. Use this descriptive roadmap guide to easily filter organizations, explore what certifications they offer, and identify exactly which career path they serve.</p>
 
-        <div class="query-card">
-            <h3><i class="fa-solid fa-cloud"></i> Cloud Providers (AWS & Azure)</h3>
-            <p>Cloud security is a must-know because almost every company hosts data online now.</p>
-            <div class="info-panel">
-                <ul>
-                    <li><strong>AWS (Amazon Web Services):</strong> Offers certifications like AWS Certified Security – Specialty. Great for AppSec (Application Security), Cloud SOC Analysts, and Cloud Architecture.</li>
-                    <li><strong>Azure (Microsoft):</strong> Offers the AZ-500 (Microsoft Azure Security Technologies) and SC-200 (Microsoft Security Operations Analyst). SC-200 is specifically a golden ticket for a cloud-focused SOC Analyst.</li>
-                </ul>
-            </div>
+        <div class="filter-section">
+            <div class="filter-label">Target Path Roadmap Filter:</div>
+            <button class="filter-btn active" onclick="filterPaths('all', this)">Show All</button>
+            <button class="filter-btn" onclick="filterPaths('soc', this)">SOC / Blue Team</button>
+            <button class="filter-btn" onclick="filterPaths('red', this)">Red Team / Pentesting</button>
+            <button class="filter-btn" onclick="filterPaths('cloud', this)">Cloud Security</button>
+            <button class="filter-btn" onclick="filterPaths('appsec', this)">AppSec</button>
+            <button class="filter-btn" onclick="filterPaths('grc', this)">GRC & Audit</button>
+            <button class="filter-btn" onclick="filterPaths('intern', this)">Internships / Starters</button>
         </div>
 
-        <div class="query-card">
-            <h3><i class="fa-solid fa-graduation-cap"></i> Foundational & Broad Training (CompTIA & Universities)</h3>
-            <p>Excellent starting points for constructing structured deep infrastructure knowledge boundaries.</p>
-            <div class="info-panel">
-                <ul>
-                    <li><strong>CompTIA:</strong> The ultimate starting point.
-                        <ul class="sub-list">
-                            <li><strong>Security+:</strong> The standard entry-level cert for getting a Cyber Intern job or a junior SOC Analyst role.</li>
-                            <li><strong>CySA+ (Cybersecurity Analyst):</strong> Ideal for an advanced SOC Analyst or Blue Team member.</li>
-                            <li><strong>PenTest+:</strong> Introduction to Red Team / Ethical Hacking.</li>
+        <div id="roadmap-container">
+            
+            <div class="category-block" data-paths="cloud appsec soc">
+                <div class="category-title">Cloud Providers (AWS & Azure)</div>
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Cloud Platforms Ecosystem</h3>
+                        <div class="tag-container">
+                            <span class="tag">Cloud Security</span>
+                            <span class="tag">Infrastructure</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Cloud security is a must-know because almost every company hosts data online now.</p>
+                        <ul class="cert-list">
+                            <li><strong>AWS (Amazon Web Services):</strong> Offers certifications like <em>AWS Certified Security – Specialty</em>. Great for AppSec (Application Security), Cloud SOC Analysts, and Cloud Architecture.</li>
+                            <li><strong>Azure (Microsoft):</strong> Offers the <em>AZ-500 (Microsoft Azure Security Technologies)</em> and <em>SC-200 (Microsoft Security Operations Analyst)</em>. SC-200 is specifically a golden ticket for a cloud-focused SOC Analyst.</li>
                         </ul>
-                    </li>
-                    <li><strong>College/University:</strong> Best for building deep fundamental knowledge (networking, operating systems, programming) and securing structured Cyber Internships. A degree isn't always mandatory, but it opens doors for GRC (Governance, Risk, and Compliance) and corporate tracks.</li>
-                </ul>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="query-card">
-            <h3><i class="fa-solid fa-shield-halved"></i> Defensive & Security Operations (Blue Team & SOC)</h3>
-            <p>Tailored options for professionals dedicated to threat validation, scanning, monitoring, and live handling analysis.</p>
-            <div class="info-panel">
-                <ul>
-                    <li><strong>Security Blue Team:</strong> A highly practical provider focused purely on defense.
-                        <ul class="sub-list">
-                            <li><strong>BTL1 (Blue Team Level 1):</strong> One of the best, most hands-on certifications for becoming a SOC Analyst or Blue Team defender. It skips the multiple-choice questions and tests you in a real digital lab.</li>
+            <div class="category-block" data-paths="intern soc red grc">
+                <div class="category-title">Foundational & Broad Training (CompTIA & Universities)</div>
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Core Concepts & Academic Pipelines</h3>
+                        <div class="tag-container">
+                            <span class="tag">Foundational</span>
+                            <span class="tag">Entry-Level</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Perfect ground layers for breaking into cybersecurity operations or policy frameworks.</p>
+                        <ul class="cert-list">
+                            <li><strong>CompTIA:</strong> The ultimate starting point.
+                                <ul style="padding-left: 20px; margin-top: 5px; list-style-type: circle;">
+                                    <li><strong>Security+:</strong> The standard entry-level cert for getting a Cyber Intern job or a junior SOC Analyst role.</li>
+                                    <li><strong>CySA+ (Cybersecurity Analyst):</strong> Ideal for an advanced SOC Analyst or Blue Team member.</li>
+                                    <li><strong>PenTest+:</strong> Introduction to Red Team / Ethical Hacking.</li>
+                                </ul>
+                            </li>
+                            <li style="margin-top: 10px;"><strong>College/University:</strong> Best for building deep fundamental knowledge (networking, operating systems, programming) and securing structured Cyber Internships. A degree isn't always mandatory, but it opens doors for GRC (Governance, Risk, and Compliance) and corporate tracks.</li>
                         </ul>
-                    </li>
-                    <li><strong>GIAC (SANS):</strong> The absolute gold standard in corporate training, though very expensive.
-                        <ul class="sub-list">
-                            <li><strong>GSEC / GCIA / GCIH:</strong> High-end certs for SOC Analysts, Incident Responders (Blue Team), and Purple Team professionals who need to detect advanced threats.</li>
-                        </ul>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="query-card">
-            <h3><i class="fa-solid fa-terminal"></i> Offensive Security & Ethical Hacking (Red Team)</h3>
-            <p>Techniques focused on finding vulnerabilities, system boundaries penetration testing, and breaking infrastructures.</p>
-            <div class="info-panel">
-                <ul>
-                    <li><strong>OffSec:</strong> Famous for notoriously difficult, hands-on exams.
-                        <ul class="sub-list">
-                            <li><strong>OSCP (Offensive Security Certified Professional):</strong> The industry benchmark for penetration testers and Red Team operators.</li>
+            <div class="category-block" data-paths="soc">
+                <div class="category-title">Defensive & Security Operations (Blue Team & SOC)</div>
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Blue Team Defense Operations</h3>
+                        <div class="tag-container">
+                            <span class="tag">SOC Operations</span>
+                            <span class="tag">Incident Response</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Focused purely on monitoring, detecting, and mitigating live infrastructure threats.</p>
+                        <ul class="cert-list">
+                            <li><strong>Security Blue Team:</strong> A highly practical provider focused purely on defense.
+                                <ul style="padding-left: 20px; margin-top: 5px; list-style-type: circle;">
+                                    <li><strong>BTL1 (Blue Team Level 1):</strong> One of the best, most hands-on certifications for becoming a SOC Analyst or Blue Team defender. It skips the multiple-choice questions and tests you in a real digital lab.</li>
+                                </ul>
+                            </li>
+                            <li style="margin-top: 10px;"><strong>GIAC (SANS):</strong> The absolute gold standard in corporate training, though very expensive.
+                                <ul style="padding-left: 20px; margin-top: 5px; list-style-type: circle;">
+                                    <li><strong>GSEC / GCIA / GCIH:</strong> High-end certs for SOC Analysts, Incident Responders (Blue Team), and Purple Team professionals who need to detect advanced threats.</li>
+                                </ul>
+                            </li>
                         </ul>
-                    </li>
-                    <li><strong>Hack The Box (HTB) & TryHackMe:</strong> Interactive gamified learning platforms.
-                        <ul class="sub-list">
-                            <li><strong>TryHackMe:</strong> Perfect for absolute beginners and Cyber Interns. They have learning paths dedicated to SOC, Pre-Security, and Junior Penetration Testing.</li>
-                            <li><strong>Hack The Box (HTB):</strong> Offers the CPTS (Certified Penetration Testing Specialist). HTB is great for intermediate to advanced Red Team and Purple Team learning.</li>
-                        </ul>
-                    </li>
-                    <li><strong>TCM Security:</strong> Affordable, high-quality video courses.
-                        <ul class="sub-list">
-                            <li><strong>PNPT (Practical Network Penetration Tester):</strong> An excellent, budget-friendly certification for breaking into a Red Team career.</li>
-                        </ul>
-                    </li>
-                    <li><strong>ZeroPoint Security:</strong> Highly specialized training.
-                        <ul class="sub-list">
-                            <li><strong>CRTO (Certified Red Team Operator):</strong> The premier course for learning advanced infrastructure attacking, crucial for mature Red Team jobs.</li>
-                        </ul>
-                    </li>
-                    <li><strong>CREST:</strong> An international certification body. Getting a CREST certification (like CREST Registered Tester) is highly prized in Europe and Asia for corporate Red Team compliance.</li>
-                </ul>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="query-card">
-            <h3><i class="fa-solid fa-code"></i> Web Application Security (AppSec)</h3>
-            <p>Focused completely on engineering logic flaws, validation problems, and hunting vulnerabilities in applications.</p>
-            <div class="info-panel">
-                <ul>
-                    <li><strong>PortSwigger:</strong> The creators of Burp Suite (the primary tool used to hack web apps). They offer the Web Security Academy, which is 100% free and arguably the best learning platform in the world for AppSec Team paths.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="query-card">
-            <h3><i class="fa-solid fa-circle-nodes"></i> Purple Team & Specialized Labs (INE & EC-Council)</h3>
-            <p>Bridging training boundaries between offensive attacks and defensive responses.</p>
-            <div class="info-panel">
-                <ul>
-                    <li><strong>INE Security (eLearnSecurity):</strong> Offers certifications like eJPT (Junior Penetration Tester) which is great for beginners/interns, and eCPPT for Red Team.</li>
-                    <li><strong>EC-Council:</strong> Known globally for the CEH (Certified Ethical Hacker). While criticized by some hands-on experts for being purely multiple-choice, it is still highly requested by HR departments and government jobs for Red Team and SOC Analysts.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="query-card">
-            <h3><i class="fa-solid fa-file-shield"></i> Management, GRC, and Compliance (ISACA & ISC2)</h3>
-            <p>If you want to work away from the keyboard handling policies, frameworks, laws, and risk, these two are your destination.</p>
-            <div class="info-panel">
-                <ul>
-                    <li><strong>ISACA:</strong>
-                        <ul class="sub-list">
-                            <li><strong>CRISC (Risk) & CISM (Security Management):</strong> Tailor-made for GRC Team and Compliance Team tracks.</li>
-                            <li><strong>CISA (Certified Information Systems Auditor):</strong> The absolute requirement for IT auditors and Compliance roles.</li>
+            <div class="category-block" data-paths="red intern">
+                <div class="category-title">Offensive Security & Ethical Hacking (Red Team)</div>
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Red Team & Penetration Testing</h3>
+                        <div class="tag-container">
+                            <span class="tag">Offensive Security</span>
+                            <span class="tag">Ethical Hacking</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Hands-on practical pipelines designed to find system vulnerabilities and test cyber compliance bounds.</p>
+                        <ul class="cert-list">
+                            <li><strong>OffSec (formerly Offensive Security):</strong> Famous for notoriously difficult, hands-on exams.
+                                <ul style="padding-left: 20px; margin-top: 5px; list-style-type: circle;">
+                                    <li><strong>OSCP (Offensive Security Certified Professional):</strong> The industry benchmark for penetration testers and Red Team operators.</li>
+                                </ul>
+                            </li>
+                            <li style="margin-top: 10px;"><strong>Hack The Box (HTB) & TryHackMe:</strong> Interactive gamified learning platforms.
+                                <ul style="padding-left: 20px; margin-top: 5px; list-style-type: circle;">
+                                    <li><strong>TryHackMe:</strong> Perfect for absolute beginners and Cyber Interns. They have learning paths dedicated to SOC, Pre-Security, and Junior Penetration Testing.</li>
+                                    <li><strong>Hack The Box (HTB):</strong> Offers the <em>CPTS (Certified Penetration Testing Specialist)</em>. HTB is great for intermediate to advanced Red Team and Purple Team learning.</li>
+                                </ul>
+                            </li>
+                            <li style="margin-top: 10px;"><strong>TCM Security:</strong> Affordable, high-quality video courses.
+                                <ul style="padding-left: 20px; margin-top: 5px; list-style-type: circle;">
+                                    <li><strong>PNPT (Practical Network Penetration Tester):</strong> An excellent, budget-friendly certification for breaking into a Red Team career.</li>
+                                </ul>
+                            </li>
+                            <li style="margin-top: 10px;"><strong>ZeroPoint Security:</strong> Highly specialized training.
+                                <ul style="padding-left: 20px; margin-top: 5px; list-style-type: circle;">
+                                    <li><strong>CRTO (Certified Red Team Operator):</strong> The premier course for learning advanced infrastructure attacking, crucial for mature Red Team jobs.</li>
+                                </ul>
+                            </li>
+                            <li style="margin-top: 10px;"><strong>CREST:</strong> An international certification body. Getting a CREST certification (like <em>CREST Registered Tester</em>) is highly prized in Europe and Asia for corporate Red Team compliance.</li>
                         </ul>
-                    </li>
-                    <li><strong>ISC2:</strong>
-                        <ul class="sub-list">
-                            <li><strong>Certified in Cybersecurity (CC):</strong> A free entry-level certification great for a Cyber Intern job.</li>
-                            <li><strong>CISSP (Certified Information Systems Security Professional):</strong> The most powerful certification in the entire industry for management, high-level GRC, and advanced engineering. (Requires 5 years of experience).</li>
-                        </ul>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
+
+            <div class="category-block" data-paths="appsec">
+                <div class="category-title">Web Application Security (AppSec)</div>
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Application Security Operations</h3>
+                        <div class="tag-container">
+                            <span class="tag">AppSec</span>
+                            <span class="tag">Web Application</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Specialized tracks focusing entirely on application-layer configurations, bug bounty hunting, and code review.</p>
+                        <ul class="cert-list">
+                            <li><strong>PortSwigger:</strong> The creators of Burp Suite (the primary tool used to hack web apps). They offer the <em>Web Security Academy</em>, which is 100% free and arguably the best learning platform in the world for AppSec Team paths.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-block" data-paths="red soc intern">
+                <div class="category-title">Purple Team & Specialized Labs (INE & EC-Council)</div>
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Cross-Discipline & HR Inbound Targets</h3>
+                        <div class="tag-container">
+                            <span class="tag">Purple Team</span>
+                            <span class="tag">Hybrid Skills</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Bridging defensive gaps with offensive execution knowledge to achieve baseline regulatory approval.</p>
+                        <ul class="cert-list">
+                            <li><strong>INE Security (eLearnSecurity):</strong> Offers certifications like <em>eJPT (Junior Penetration Tester)</em> which is great for beginners/interns, and <em>eCPPT</em> for Red Team.</li>
+                            <li><strong>EC-Council:</strong> Known globally for the <em>CEH (Certified Ethical Hacker)</em>. While criticized by some hands-on experts for being purely multiple-choice, it is still highly requested by HR departments and government jobs for Red Team and SOC Analysts.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-block" data-paths="grc intern">
+                <div class="category-title">Management, GRC, and Compliance (ISACA & ISC2)</div>
+                <div class="career-card">
+                    <div class="card-header">
+                        <h3>Governance, Risk, and Policy Frameworks</h3>
+                        <div class="tag-container">
+                            <span class="tag">GRC Team</span>
+                            <span class="tag">Audit & Compliance</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>If you want to work away from the keyboard handling policies, frameworks, laws, and risk, these two are your destination.</p>
+                        <ul class="cert-list">
+                            <li><strong>ISACA:</strong>
+                                <ul style="padding-left: 20px; margin-top: 5px; list-style-type: circle;">
+                                    <li><strong>CRISC (Risk) & CISM (Security Management):</strong> Tailor-made for GRC Team and Compliance Team tracks.</li>
+                                    <li><strong>CISA (Certified Information Systems Auditor):</strong> The absolute requirement for IT auditors and Compliance roles.</li>
+                                </ul>
+                            </li>
+                            <li style="margin-top: 10px;"><strong>ISC2:</strong>
+                                <ul style="padding-left: 20px; margin-top: 5px; list-style-type: circle;">
+                                    <li><strong>Certified in Cybersecurity (CC):</strong> A free entry-level certification great for a Cyber Intern job.</li>
+                                    <li><strong>CISSP (Certified Information Systems Security Professional):</strong> The most powerful certification in the entire industry for management, high-level GRC, and advanced engineering. <em>(Requires 5 years of experience)</em>.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div> 
+    </div>
 
     <footer>
         <ul class="footer-links">
-            <li><a href="about.html">About</a></li>
+            <li><a href="about.html">About Us</a></li>
             <li><a href="contact.html">Contact Us</a></li>
             <li><a href="terms.html">Terms & Conditions</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
         </ul>
-        <p>&copy; 2026 Cybertechwise. All Rights Reserved.</p>
+        <p>&copy; 2026 Cybertechwise. All rights reserved.</p>
     </footer>
 
+    <script>
+        function filterPaths(path, button) {
+            // Remove active class from all filter buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Filter elements
+            const blocks = document.querySelectorAll('.category-block');
+            blocks.forEach(block => {
+                if (path === 'all') {
+                    block.style.display = 'block';
+                } else {
+                    const paths = block.getAttribute('data-paths').split(' ');
+                    if (paths.includes(path)) {
+                        block.style.display = 'block';
+                    } else {
+                        block.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>
