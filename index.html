@@ -221,7 +221,7 @@
             <ul class="nav-links">
                 <li><a href="siem.html">SIEM (KQL/SPL)</a></li>
                 <li><a href="edr.html">EDR (CQL)</a></li>
-                <li><a href="ports.html">Networl Protocol (Ports)</a></li>
+                <li><a href="ports.html">Network Protocol (Ports)</a></li>
                 <li><a href="careers.html">Cyber Careers</a></li>
                 <li><a href="insights.html">Cyber Insights</a></li>
             </ul>
@@ -259,8 +259,11 @@
             event.preventDefault();
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
 
+            // Explicit lists for specific targets to prevent number conflicts
+            const siemSpecificAlerts = ['50126', '4625', '4526'];
+
             // Intelligent redirection routing mapping keywords to your files
-            if (query.includes('kql') || query.includes('splunk') || query.includes('spl') || query.includes('siem')) {
+            if (siemSpecificAlerts.some(alertId => query.includes(alertId)) || query.includes('kql') || query.includes('splunk') || query.includes('spl') || query.includes('siem')) {
                 window.location.href = `siem.html?search=${encodeURIComponent(query)}`;
             } else if (query.includes('cql') || query.includes('crowdstrike') || query.includes('edr')) {
                 window.location.href = `edr.html?search=${encodeURIComponent(query)}`;
